@@ -103,15 +103,20 @@ completion["nvim-telescope/telescope.nvim"] = {
   config = conf.telescope,
   setup = conf.telescope_preload,
   requires = {
-    {"nvim-lua/plenary.nvim", opt = true},
-    {"nvim-telescope/telescope-fzy-native.nvim", opt = true}
+    {"nvim-lua/plenary.nvim", opt = true}
+    -- {"nvim-telescope/telescope-fzy-native.nvim", opt = true},
+    -- {"nvim-telescope/telescope-fzf-native.nvim", opt = true, run = 'make'},
+    -- {"nvim-telescope/telescope-fzf-writer.nvim", opt = true}
   },
   opt = true
 }
 
 completion["mattn/emmet-vim"] = {
   event = "InsertEnter",
-  ft = {"html", "css", "javascript", "javascriptreact", "vue", "typescript", "typescriptreact", "scss", "sass", "less", "jade", "haml", "elm"},
+  ft = {
+    "html", "css", "javascript", "javascriptreact", "vue", "typescript", "typescriptreact", "scss",
+    "sass", "less", "jade", "haml", "elm"
+  },
   setup = conf.emmet
 }
 
@@ -136,7 +141,7 @@ completion[plugin_folder() .. "lsp_signature.nvim"] = {
       handler_opts = {
         border = "rounded" -- "shadow", --{"╭", "─" ,"╮", "│", "╯", "─", "╰", "│" },
       },
-      max_height = 4,
+      max_height = 4
     })
   end
 }

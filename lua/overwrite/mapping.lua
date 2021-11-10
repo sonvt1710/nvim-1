@@ -39,17 +39,17 @@ local keys = {
   -- Lsp mapp work when insertenter and lsp start
   --
   -- ["n|<Leader>tc"] = map_cu("Clap colors"):with_noremap():with_silent(),
-  ["n|<Leader>bb"] = map_cu("Clap buffers"):with_noremap():with_silent(),
+  -- ["n|<Leader>bb"] = map_cu("Clap buffers"):with_noremap():with_silent(),
   -- ["n|<Leader>ff"] = map_cu("Clap grep"):with_noremap():with_silent(),
   ["n|<Leader>fb"] = map_cu("Clap marks"):with_noremap():with_silent(),
-  ["n|<C-x><C-f>"] = map_cu("Clap filer"):with_noremap():with_silent(),
+  -- ["n|<C-x><C-f>"] = map_cu("Clap filer"):with_noremap():with_silent(),
   ["n|<Leader>ff"] = map_cu("Clap files ++finder=rg --ignore --hidden --files"):with_noremap():with_silent(),
-  ["n|<M-g>"] = map_cu("Clap gfiles"):with_noremap():with_silent(),
+  -- ["n|<M-g>"] = map_cu("Clap gfiles"):with_noremap():with_silent(),
   ["n|<Leader>fw"] = map_cu("Clap grep ++query=<Cword>"):with_noremap():with_silent(),
   ["n|<M-h>"] = map_cu("Clap history"):with_noremap():with_silent(),
 
-  ["n|<Leader>fW"] = map_cu("Clap windows"):with_noremap():with_silent(),
-  ["n|<Leader>fl"] = map_cu("Clap loclist"):with_noremap():with_silent(),
+  -- ["n|<Leader>fW"] = map_cu("Clap windows"):with_noremap():with_silent(),
+  -- ["n|<Leader>fl"] = map_cu("Clap loclist"):with_noremap():with_silent(),
   ["n|<Leader>fu"] = map_cu("Clap git_diff_files"):with_noremap():with_silent(),
   ["n|<Leader>fv"] = map_cu("Clap grep ++query=@visual"):with_noremap():with_silent(),
   ["n|<Leader>fh"] = map_cu("Clap command_history"):with_noremap():with_silent(),
@@ -99,17 +99,18 @@ local keys = {
   -- clap --
   ["n|<d-C>"] = map_cu("Clap | startinsert"),
   ["i|<d-C>"] = map_cu("Clap | startinsert"):with_noremap():with_silent(),
-  ["n|<d-p>"] = map_cu("Clap files | startinsert"),
-  ["i|<d-p>"] = map_cu("Clap files | startinsert"):with_noremap():with_silent(),
-  ["n|<d-m>"] = map_cu("Clap files | startinsert"),
-  ["n|<M-m>"] = map_cu("Clap maps +mode=n | startinsert"),
-  ["i|<M-m>"] = map_cu("Clap maps +mode=i | startinsert"),
-  ["v|<M-m>"] = map_cu("Clap maps +mode=v | startinsert"),
-  ["n|<d-f>"] = map_cu("Clap grep ++query=<cword> |  startinsert"),
-  ["i|<d-f>"] = map_cu("Clap grep ++query=<cword> |  startinsert"):with_noremap():with_silent(),
-  ["n|<d-F>"] = map_cu("Clap dumb_jump ++query=<cword> | startinsert"),
-  ["i|<d-F>"] = map_cu("Clap dumb_jump ++query=<cword> | startinsert"):with_noremap():with_silent()
+  -- ["n|<d-p>"] = map_cu("Clap files | startinsert"),
+  -- ["i|<d-p>"] = map_cu("Clap files | startinsert"):with_noremap():with_silent(),
+  -- ["n|<d-m>"] = map_cu("Clap files | startinsert"),
+  -- ["n|<M-m>"] = map_cu("Clap maps +mode=n | startinsert"),
+  -- ["i|<M-m>"] = map_cu("Clap maps +mode=i | startinsert"),
+  -- ["v|<M-m>"] = map_cu("Clap maps +mode=v | startinsert"),
 
+  -- ["n|<d-f>"] = map_cu("Clap grep ++query=<cword> |  startinsert"),
+  -- ["i|<d-f>"] = map_cu("Clap grep ++query=<cword> |  startinsert"):with_noremap():with_silent(),
+  ["n|<d-F>"] = map_cu("Clap dumb_jump ++query=<cword> | startinsert"),
+  ["i|<d-F>"] = map_cu("Clap dumb_jump ++query=<cword> | startinsert"):with_noremap():with_silent(),
+  ["in|<Leader>c<Space>"] = map_cr("<cmd>lua require'dap.ui.variables'.hover()"):with_expr()
   -- session
   -- ["n|<Leader>ss"] = map_cu('SessionSave'):with_noremap(),
   -- ["n|<Leader>sl"] = map_cu('SessionLoad'):with_noremap(),

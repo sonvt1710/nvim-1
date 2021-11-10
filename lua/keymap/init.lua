@@ -23,7 +23,7 @@ local plug_map = {
   ["n|<Leader>tf"] = map_cu('DashboardNewFile'):with_noremap():with_silent(),
   -- Plugin nvim-tree
   -- ["n|<Leader>e"]      = map_cr('NvimTreeToggle'):with_noremap():with_silent(),
-  ["n|<Leader>F"] = map_cr('NvimTreeFindFile'):with_noremap():with_silent(),
+  -- ["n|<Leader>F"] = map_cr('NvimTreeFindFile'):with_noremap():with_silent(),
   -- Plugin MarkdownPreview
   ["n|<Leader>om"] = map_cu('MarkdownPreview'):with_noremap():with_silent(),
   -- Plugin DadbodUI
@@ -32,10 +32,21 @@ local plug_map = {
   ["n|<Leader>bb"] = map_cu('Telescope buffers'):with_noremap():with_silent(),
   ["n|<Leader>fb"] = map_cu('Telescope file_browser'):with_noremap():with_silent(),
   ["n|<Leader>fg"] = map_cu('Telescope git_files'):with_noremap():with_silent(),
-  ["n|<Leader>fw"] = map_cu('Telescope grep_string'):with_noremap():with_silent(),
+  -- ["n|<Leader>fw"] = map_cu('Telescope grep_string'):with_noremap():with_silent(),
   ["n|<Leader>fl"] = map_cu('Telescope loclist'):with_noremap():with_silent(),
   ["n|<Leader>fc"] = map_cu('Telescope git_commits'):with_noremap():with_silent(),
   ["n|<Leader>ft"] = map_cu('Telescope help_tags'):with_noremap():with_silent(),
+  -- GUI, kitty
+
+  ["in|<d-p>"] = map_cu('Telescope find_files'):with_noremap():with_silent(),
+  -- ["in|<d-T>"] = map_cu("Telescope"):with_noremap():with_silent(),
+  -- ["in|<d-f>"] = map_cr("<cmd> lua require'telescope.builtin'.grep_string({defulat_text=vim.fn.expand('cword')})"):with_noremap()
+  --     :with_silent(),
+
+  ["in|<d-f>"] = map_cmd([[ ':Telescope live_grep_raw<cr>' . expand('<cword>')]]):with_noremap():with_silent()
+      :with_expr(),
+  -- ["in|<d-F>"] = map_cr("<cmd> lua require'telescope.builtin'.live_grep({defulat_text=vim.fn.expand('cword')})"):with_noremap()
+  -- :with_silent(),
   -- ["n|<Leader>fd"]     = map_cu('Telescope dotfiles path='..global..'/.dotfiles'):with_noremap():with_silent(),
   ["n|<Leader>fs"] = map_cu('Telescope gosource'):with_noremap():with_silent(),
   ["n|w"] = map_cmd('v:lua.word_motion_move("w")'):with_silent():with_expr(),
@@ -50,14 +61,13 @@ local plug_map = {
   -- ["n|sr"]             = map_cmd("<Plug>(operator-surround-replace)"):with_silent(),
   ["n|<F8>"] = map_cmd("call SideKickNoReload()"):with_silent(),
   -- ["x|gcc"] = map_cmd("<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>"):with_silent(),
-  ["x|gcc"] = map_cmd("<ESC><CMD>lua ___comment_gc(vim.fn.visualmode())<CR>"):with_silent(),
+  ["in|<Leader>C<Space>"] = map_cr([[execute "normal gcc"]]):with_silent(),
+  ["vx|<Leader>C<Space>"] = map_cr("<ESC><CMD>lua ___comment_gc(vim.fn.visualmode())"):with_silent(),
 
   ["n|<d-/>"] = map_cmd("<ESC><CMD>lua ___comment_gcc(vim.fn.visualmode())<CR>"):with_silent(),
-  ["i|<d-/>"] = map_cmd("<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>"):with_silent(),
-  ["x|<d-/>"] = map_cmd('<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>'):with_silent(),
+  ["ix|<d-/>"] = map_cmd("<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>"):with_silent(),
 
   ["i|<m-/>"] = map_cmd("<ESC><CMD>lua ___comment_gcc(vim.fn.visualmode())<CR>"):with_silent(),
-  ["i|<m-/>"] = map_cmd("<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>"):with_silent(),
   ["x|<m-/>"] = map_cmd('<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>'):with_silent()
 };
 

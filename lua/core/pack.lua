@@ -5,7 +5,8 @@ local data_dir = require('core.global').data_dir
 -- local home = require('core.global').home
 local modules_dir = vim_path .. path_sep .. 'lua' .. path_sep ..'modules'
 local packer_compiled = data_dir .. path_sep .. 'packer_compiled.vim'
-local compile_to_lua = data_dir .. path_sep ..'lua' .. path_sep ..'_compiled.lua'
+--local compile_to_lua = data_dir .. path_sep ..'lua' .. path_sep ..'_compiled.lua'
+local compile_to_lua = vim_path .. path_sep ..'lua' .. path_sep ..'_compiled.lua'
 local packer = nil
 
 local Packer = {}

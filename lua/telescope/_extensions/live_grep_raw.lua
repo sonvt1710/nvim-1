@@ -1,7 +1,6 @@
 -- SPDX-FileCopyrightText: 2021 Michael Weimann <mail@michael-weimann.eu>
 --
 -- SPDX-License-Identifier: MIT
-
 -- check when this PR merge
 -- https://github.com/nvim-telescope/telescope.nvim/pull/670
 local telescope = require("telescope")
@@ -20,12 +19,14 @@ local tbl_clone = function(original)
 end
 
 local grep_highlighter_only = function(opts)
-  return sorters.Sorter:new {
-    scoring_function = function() return 0 end,
+  return sorters.Sorter:new{
+    scoring_function = function()
+      return 0
+    end,
 
     highlighter = function(_, prompt, display)
       return {}
-    end,
+    end
   }
 end
 
@@ -44,18 +45,17 @@ local live_grep_raw = function(opts)
     local args = tbl_clone(opts.vimgrep_arguments)
     local prompt_parts = vim.split(prompt, " ")
 
-    local cmd = vim.tbl_flatten { args, prompt_parts }
+    local cmd = vim.tbl_flatten {args, prompt_parts}
     return cmd
   end
 
   pickers.new(opts, {
-    prompt_title = 'Live Grep Raw',
+    prompt_title = 'Ripgrep Raw',
     finder = finders.new_job(cmd_generator, opts.entry_maker, opts.max_results, opts.cwd),
     previewer = conf.grep_previewer(opts),
-    sorter = grep_highlighter_only(opts),
+    sorter = grep_highlighter_only(opts)
   }):find()
 end
 
-return telescope.register_extension {
-  exports = { live_grep_raw = live_grep_raw },
-}
+
+return telescope.register_extension {exports = {live_grep_raw = live_grep_raw}}
