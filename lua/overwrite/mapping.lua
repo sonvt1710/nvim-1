@@ -105,8 +105,8 @@ local keys = {
 
   -- ["n|<d-f>"] = map_cu("Clap grep ++query=<cword> |  startinsert"),
   -- ["i|<d-f>"] = map_cu("Clap grep ++query=<cword> |  startinsert"):with_noremap():with_silent(),
-  ["n|<d-F>"] = map_cu("Clap dumb_jump ++query=<cword> | startinsert"),
-  ["i|<d-F>"] = map_cu("Clap dumb_jump ++query=<cword> | startinsert"):with_noremap():with_silent(),
+  ["n|<Leader>df"] = map_cu("Clap dumb_jump ++query=<cword> | startinsert"),
+  ["i|<Leader>df"] = map_cu("Clap dumb_jump ++query=<cword> | startinsert"):with_noremap():with_silent(),
   ["in|<Leader>c<Space>"] = map_cr("<cmd>lua require'dap.ui.variables'.hover()"):with_expr()
   -- session
   -- ["n|<Leader>ss"] = map_cu('SessionSave'):with_noremap(),

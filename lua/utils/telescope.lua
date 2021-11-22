@@ -1,11 +1,11 @@
 local a = vim.api
+
+local loader = require"packer".loader
+if not packer_plugins['telescope.nvim'].loaded then
+  loader('telescope.nvim')
+end
 local telescope = require("telescope")
 local actions = require('telescope.actions')
-local config = require('telescope.config')
-local pickers = require('telescope.pickers')
-local finders = require('telescope.finders')
-local make_entry = require('telescope.make_entry')
-local previewers = require('telescope.previewers')
 local conf = require('telescope.config').values
 
 local layout = require('telescope.pickers.layout_strategies')
@@ -16,7 +16,6 @@ local sorters = require('telescope.sorters')
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local builtin = require('telescope.builtin')
-local config = require('telescope.config')
 local state = require('telescope.state')
 local action_set = require "telescope.actions.set"
 
@@ -187,10 +186,6 @@ end
 function M.load_dotfiles()
   local has_telescope, telescope = pcall(require, 'telescope.builtin')
   if has_telescope then
-    local finders = require('telescope.finders')
-    local previewers = require('telescope.previewers')
-    local pickers = require('telescope.pickers')
-    local sorters = require('telescope.sorters')
     local themes = require('telescope.themes')
 
     local results = {}
@@ -219,6 +214,8 @@ function M.load_dotfiles()
 end
 
 M.setup = function()
+
+  local loader = require"packer".loader
   telescope.setup {
     defaults = {
       shorten_path = true,
@@ -231,6 +228,7 @@ M.setup = function()
       extensions = {fzy_native = {override_generic_sorter = false, override_file_sorter = true}},
       mappings = {
         n = {
+          ["<esc>"] = actions.close,
           ["<C-e>"] = function(prompt_bufnr)
             local results_win = state.get_status(prompt_bufnr).results_win
             local height = vim.api.nvim_win_get_height(results_win)
@@ -243,7 +241,6 @@ M.setup = function()
           end
         },
         i = {
-          ["<esc>"] = actions.close,
           ["<C-e>"] = function(prompt_bufnr)
             local results_win = state.get_status(prompt_bufnr).results_win
             local height = vim.api.nvim_win_get_height(results_win)
@@ -258,9 +255,29 @@ M.setup = function()
       }
     }
   }
+
   telescope.load_extension("dotfiles")
   telescope.load_extension("gosource")
-  telescope.load_extension("live_grep_raw")
+
+  loader('telescope-fzy-native.nvim telescope-fzf-native.nvim telescope-live-grep-raw.nvim')
+
+  telescope.setup {
+    extensions = {
+      fzf = {
+        fuzzy = true, -- false will only do exact matching
+        override_generic_sorter = true, -- override the generic sorter
+        override_file_sorter = true, -- override the file sorter
+        case_mode = "smart_case" -- or "ignore_case" or "respect_case"
+        -- the default case_mode is "smart_case"
+      }
+    }
+  }
+  telescope.load_extension('fzf')
+  telescope.setup {
+    extensions = {fzy_native = {override_generic_sorter = false, override_file_sorter = true}}
+  }
+  telescope.load_extension('fzy_native')
+
 end
 
 return M

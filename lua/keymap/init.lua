@@ -32,6 +32,11 @@ local plug_map = {
   ["n|<Leader>bb"] = map_cu('Telescope buffers'):with_noremap():with_silent(),
   ["n|<Leader>fb"] = map_cu('Telescope file_browser'):with_noremap():with_silent(),
   ["n|<Leader>fg"] = map_cu('Telescope git_files'):with_noremap():with_silent(),
+  ["n|<M-p>"] = map_cr(
+      '<cmd>lua require("telescope").extensions.frecency.frecency({ sorter = require("telescope").extensions.fzf.native_fzf_sorter() })'):with_silent(),
+  ["n|<Leader>cl"] = map_cr('<cmd>lua require("telescope").extensions.neoclip.default()'):with_silent(),
+  ["n|<Leader>fz"] = map_cr('<cmd>lua require("telescope").extensions.zoxide.list()'):with_silent(),
+  ["n|<Leader>fp"] = map_cr('<cmd>lua require("telescope").extensions.projects.projects()'):with_silent(),
   -- ["n|<Leader>fw"] = map_cu('Telescope grep_string'):with_noremap():with_silent(),
   ["n|<Leader>fl"] = map_cu('Telescope loclist'):with_noremap():with_silent(),
   ["n|<Leader>fc"] = map_cu('Telescope git_commits'):with_noremap():with_silent(),
@@ -43,8 +48,11 @@ local plug_map = {
   -- ["in|<d-f>"] = map_cr("<cmd> lua require'telescope.builtin'.grep_string({defulat_text=vim.fn.expand('cword')})"):with_noremap()
   --     :with_silent(),
 
-  ["in|<d-f>"] = map_cmd([[ ':Telescope live_grep_raw<cr>' . expand('<cword>')]]):with_noremap():with_silent()
-      :with_expr(),
+  ["in|<d-f>"] = map_cmd([[ ':Telescope live_grep<cr>' . expand('<cword>')]]):with_expr():with_silent(),
+  --     :with_expr(),
+
+  ["in|<d-F>"] = map_cr([[
+   <cmd> lua require("telescope").extensions.live_grep_raw.live_grep_raw()]]):with_expr():with_silent(),
   -- ["in|<d-F>"] = map_cr("<cmd> lua require'telescope.builtin'.live_grep({defulat_text=vim.fn.expand('cword')})"):with_noremap()
   -- :with_silent(),
   -- ["n|<Leader>fd"]     = map_cu('Telescope dotfiles path='..global..'/.dotfiles'):with_noremap():with_silent(),

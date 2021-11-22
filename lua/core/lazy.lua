@@ -41,7 +41,6 @@ function lazyload()
     return
   end
 
-
   local plugins = "plenary.nvim" -- nvim-lspconfig navigator.lua   guihua.lua navigator.lua  -- gitsigns.nvim
   loader("plenary.nvim")
 
@@ -57,7 +56,7 @@ function lazyload()
 
   local gitrepo = vim.fn.isdirectory('.git/index')
   if gitrepo then
-    loader("gitsigns.nvim neogit vgit.nvim") -- vgit.nvim
+    loader("gitsigns.nvim neogit") -- vgit.nvim
   end
 
   if load_lsp then
@@ -68,7 +67,7 @@ function lazyload()
   require("vscripts.cursorhold")
   require("vscripts.tools")
   if load_ts_plugins then
-    print('load ts plugins')
+    -- print('load ts plugins')
     loader("nvim-treesitter")
   end
 
@@ -112,3 +111,9 @@ vim.defer_fn(function()
   vim.cmd([[doautocmd ColorScheme]])
   vim.cmd(cmd)
 end, lazy_timer + 20)
+
+vim.defer_fn(function()
+  local loader = require'packer'.loader
+
+  loader('telescope.nvim telescope-zoxide project.nvim nvim-neoclip.lua')
+end, lazy_timer + 50)
