@@ -41,6 +41,10 @@ function lazyload()
     return
   end
 
+
+  local plugins = "plenary.nvim" -- nvim-lspconfig navigator.lua   guihua.lua navigator.lua  -- gitsigns.nvim
+  loader("plenary.nvim")
+
   if vim.bo.filetype == 'lua' then
     loader("lua-dev.nvim")
   end
@@ -49,8 +53,6 @@ function lazyload()
     loader("neorg")
   end
 
-  local plugins = "plenary.nvim" -- nvim-lspconfig navigator.lua   guihua.lua navigator.lua  -- gitsigns.nvim
-  loader(plugins)
   vim.g.vimsyn_embed = 'lPr'
 
   local gitrepo = vim.fn.isdirectory('.git/index')
@@ -66,7 +68,7 @@ function lazyload()
   require("vscripts.cursorhold")
   require("vscripts.tools")
   if load_ts_plugins then
-    -- print('load ts plugins')
+    print('load ts plugins')
     loader("nvim-treesitter")
   end
 
@@ -98,7 +100,7 @@ vim.cmd([[autocmd User LoadLazyPlugin lua lazyload()]])
 vim.cmd("command! Gram lua require'modules.tools.config'.grammcheck()")
 vim.cmd("command! Spell call spelunker#check()")
 
-local lazy_timer = 50
+local lazy_timer = 60
 vim.defer_fn(function()
   vim.cmd([[doautocmd User LoadLazyPlugin]])
 end, lazy_timer)

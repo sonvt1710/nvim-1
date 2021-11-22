@@ -103,10 +103,7 @@ completion["nvim-telescope/telescope.nvim"] = {
   config = conf.telescope,
   setup = conf.telescope_preload,
   requires = {
-    {"nvim-lua/plenary.nvim", opt = true, after = 'telescope.nvim'},
-    {'nvim-telescope/telescope-live-grep-raw.nvim', opt = true, after = 'telescope.nvim'},
-    {"nvim-telescope/telescope-fzy-native.nvim", opt = true, after = 'telescope.nvim'},
-    {"nvim-telescope/telescope-fzf-native.nvim", opt = true, run = 'make', after = 'telescope.nvim'}
+    {"nvim-lua/plenary.nvim", opt = true}, {"nvim-telescope/telescope-fzy-native.nvim", opt = true}
   },
   opt = true
 }
