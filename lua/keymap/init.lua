@@ -64,7 +64,8 @@ local plug_map = {
       [[v:count == 0 ? '<CMD>lua ___comment_call("gcc")<CR>g@$' : '<CMD>lua ___comment_count_gcc()<CR>']]):with_silent()
       :with_expr(),
   ["n|<d-/>"] = map_cmd("<ESC><CMD>lua ___comment_gcc(vim.fn.visualmode())<CR>"):with_silent(),
-  ["ix|<d-/>"] = map_cmd("<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>"):with_silent(),
+  ["i|<d-/>"] = map_cmd("<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>"):with_silent(),
+  ["x|<d-/>"] = map_cmd('<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>'):with_silent(),
 
   ["n|<m-/>"] = map_cmd("<ESC><CMD>lua ___comment_gcc(vim.fn.visualmode())<CR>"):with_silent(),
   ["i|<m-/>"] = map_cmd("<ESC><CMD>lua ___comment_gb(vim.fn.visualmode())<CR>"):with_silent(),

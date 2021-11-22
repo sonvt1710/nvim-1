@@ -4,7 +4,7 @@ local path_sep = require('core.global').path_sep
 local data_dir = require('core.global').data_dir
 -- local home = require('core.global').home
 local modules_dir = vim_path .. path_sep .. 'lua' .. path_sep .. 'modules'
-local packer_compiled = data_dir .. 'packer_compiled.vim'
+local packer_compiled = data_dir ..'packer_compiled.vim'
 local compile_to_lua = data_dir .. 'lua' .. path_sep .. '_compiled.lua'
 local packer = nil
 
@@ -47,7 +47,7 @@ function Packer:load_packer()
   local use_rocks = packer.use_rocks
   self:load_plugins()
   use {"wbthomason/packer.nvim"}
-  use {'lewis6991/impatient.nvim'}
+  -- use {'lewis6991/impatient.nvim'}
   for _, repo in ipairs(self.repos) do
     use(repo)
   end
@@ -87,7 +87,10 @@ function plugins.convert_compile_file()
   local lines = {}
   local lnum = 1
   lines[#lines + 1] = 'vim.cmd [[packadd packer.nvim]]\n'
-
+  if vim.fn.filereadable(packer_compiled) ~= 1 then
+    local file = io.open(packer_compiled, "w")
+    file:close()
+  end
   for line in io.lines(packer_compiled) do
     lnum = lnum + 1
     if lnum > 15 then
