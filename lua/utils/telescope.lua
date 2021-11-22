@@ -213,6 +213,73 @@ function M.load_dotfiles()
   require('telescope.builtin').dotfiles()
 end
 
+-- https://github.com/AshineFoster/nvim/blob/master/lua/plugins/telescope.lua
+local horizontal_preview_width = function(_, cols, _)
+  if cols > 200 then
+    return math.floor(cols * 0.6)
+  else
+    return math.floor(cols * 0.5)
+  end
+end
+
+local width_for_nopreview = function(_, cols, _)
+  if cols > 200 then
+    return math.floor(cols * 0.5)
+  elseif cols > 110 then
+    return math.floor(cols * 0.6)
+  else
+    return math.floor(cols * 0.75)
+  end
+end
+
+local height_dropdown_nopreview = function(_, _, rows)
+  return math.floor(rows * 0.7)
+end
+local custom_actions = {}
+
+function custom_actions.send_to_qflist(prompt_bufnr)
+  require('telescope.actions').send_to_qflist(prompt_bufnr)
+  require('user').qflist.open()
+end
+
+function custom_actions.smart_send_to_qflist(prompt_bufnr)
+  require('telescope.actions').smart_send_to_qflist(prompt_bufnr)
+  require('user').qflist.open()
+end
+
+function custom_actions.page_up(prompt_bufnr)
+  require('telescope.actions.set').shift_selection(prompt_bufnr, -5)
+end
+
+function custom_actions.page_down(prompt_bufnr)
+  require('telescope.actions.set').shift_selection(prompt_bufnr, 5)
+end
+
+function custom_actions.change_directory(prompt_bufnr)
+  local entry = require('telescope.actions.state').get_selected_entry()
+  require('telescope.actions').close(prompt_bufnr)
+  vim.cmd('lcd ' .. entry.path)
+end
+
+-- https://github.com/nvim-telescope/telescope.nvim/issues/416#issuecomment-841273053
+
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+
+function custom_actions.fzf_multi_select(prompt_bufnr)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local num_selections = table.getn(picker:get_multi_selection())
+
+  if num_selections > 1 then
+    -- actions.file_edit throws - context of picker seems to change
+    -- actions.file_edit(prompt_bufnr)
+    actions.send_selected_to_qflist(prompt_bufnr)
+    actions.open_qflist()
+  else
+    actions.file_edit(prompt_bufnr)
+  end
+end
+
 M.setup = function()
 
   local loader = require"packer".loader
@@ -220,8 +287,34 @@ M.setup = function()
     defaults = {
       shorten_path = true,
       prompt_prefix = "🍔 ",
-      layout_config = {prompt_position = "top"},
+      layout_strategy = 'flex',
+      layout_config = {
+        prompt_position = "top",
+        width = 0.9,
+        horizontal = {
+          -- width_padding = 0.1,
+          -- height_padding = 0.1,
+          -- preview_cutoff = 60,
+          -- width = width_for_nopreview,
+          preview_width = horizontal_preview_width
+        },
+        vertical = {
+          -- width_padding = 0.05,
+          -- height_padding = 1,
+          width = 0.75,
+          height = 0.85,
+          preview_height = 0.4,
+          mirror = true
+        },
+        flex = {
+          -- change to horizontal after 120 cols
+          flip_columns = 120
+        }
+      },
       sorting_strategy = "ascending",
+      selection_strategy = 'closest',
+      scroll_strategy = 'cycle',
+      selection_caret = ' ▷ ',
       file_previewer = require"telescope.previewers".vim_buffer_cat.new,
       grep_previewer = require"telescope.previewers".vim_buffer_vimgrep.new,
       qflist_previewer = require"telescope.previewers".vim_buffer_qflist.new,
@@ -229,24 +322,42 @@ M.setup = function()
       mappings = {
         n = {
           ["<esc>"] = actions.close,
-          ["<C-e>"] = function(prompt_bufnr)
+          ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+          ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
+          ["<cr>"] = custom_actions.fzf_multi_select,
+          ["<C-n>"] = function(prompt_bufnr)
             local results_win = state.get_status(prompt_bufnr).results_win
             local height = vim.api.nvim_win_get_height(results_win)
             action_set.shift_selection(prompt_bufnr, math.floor(height / 2))
           end,
-          ["<C-y>"] = function(prompt_bufnr)
+          ["<C-p>"] = function(prompt_bufnr)
             local results_win = state.get_status(prompt_bufnr).results_win
             local height = vim.api.nvim_win_get_height(results_win)
             action_set.shift_selection(prompt_bufnr, -math.floor(height / 2))
           end
         },
         i = {
-          ["<C-e>"] = function(prompt_bufnr)
+          ['<Down>'] = actions.cycle_history_next,
+          ['<Up>'] = actions.cycle_history_prev,
+          ['<Tab>'] = actions.move_selection_next,
+          ['<S-Tab>'] = actions.move_selection_previous,
+          ['<C-q>'] = custom_actions.smart_send_to_qflist,
+          -- ['w'] = myactions.smart_send_to_qflist,
+          -- ['e'] = myactions.send_to_qflist,
+          ['<Space>'] = {
+            actions.toggle_selection,
+            type = 'action',
+            -- See https://github.com/nvim-telescope/telescope.nvim/pull/890
+            keymap_opts = {nowait = true}
+          },
+          ['J'] = actions.toggle_selection + actions.move_selection_next,
+          ['K'] = actions.toggle_selection + actions.move_selection_previous,
+          ["<C-n>"] = function(prompt_bufnr)
             local results_win = state.get_status(prompt_bufnr).results_win
             local height = vim.api.nvim_win_get_height(results_win)
             action_set.shift_selection(prompt_bufnr, math.floor(height / 2))
           end,
-          ["<C-y>"] = function(prompt_bufnr)
+          ["<C-p>"] = function(prompt_bufnr)
             local results_win = state.get_status(prompt_bufnr).results_win
             local height = vim.api.nvim_win_get_height(results_win)
             action_set.shift_selection(prompt_bufnr, -math.floor(height / 2))
