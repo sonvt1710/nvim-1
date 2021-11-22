@@ -116,9 +116,22 @@ lang["p00f/nvim-ts-rainbow"] = {
   cmd = 'Rainbow',
   config = function()
     require"nvim-treesitter.configs".setup {rainbow = {enable = true, extended_mode = true}}
-  end,
-  opt = true
+  end
 }
+
+lang['folke/trouble.nvim'] = {
+  cmd = {'Trouble', 'TroubleToggle'},
+  config = function()
+    require("trouble").setup {}
+  end
+}
+
+-- lang['ldelossa/calltree.nvim'] = {
+--   cmd = {'CTExpand', 'CTCollapse', 'CTSwitch', 'CTJump', 'CTFocus'},
+--   config = function()
+--     require("calltree").setup {}
+--   end
+-- }
 
 -- lang['jose-elias-alvarez/null-ls.nvim'] = {
 --   opt = true,

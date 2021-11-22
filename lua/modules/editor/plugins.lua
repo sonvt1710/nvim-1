@@ -77,12 +77,16 @@ editor["mg979/vim-visual-multi"] = {
   opt = true,
   setup = conf.vmulti
 }
+
+editor['indianboy42/hop-extensions'] = {after = 'hop', opt = true}
+
 -- EasyMotion in lua. -- maybe replace sneak
 editor["phaazon/hop.nvim"] = {
   as = "hop",
   cmd = {
     "HopWord", "HopWordAC", "HopWordBC", "HopLine", "HopChar1", "HopChar1AC", "HopChar1BC",
-    "HopChar2", "HopChar2AC", "HopChar2BC", "HopPattern", "HopPatternAC", "HopPatternBC"
+    "HopChar2", "HopChar2AC", "HopChar2BC", "HopPattern", "HopPatternAC", "HopPatternBC",
+    "HopChar1CurrentLineAC", "HopChar1CurrentLineBC", "HopChar1CurrentLine"
   },
   config = function()
     -- you can configure Hop the way you like here; see :h hop-config
@@ -156,4 +160,18 @@ editor["chaoren/vim-wordmotion"] = {
   -- keys = {'w','W', 'gE', 'aW'}
 }
 
+editor["folke/zen-mode.nvim"] = {
+  opt = true,
+  cmd = {'ZenMode'},
+  config = function()
+    require("zen-mode").setup {}
+  end
+}
+
+-- editor["nvim-neorg/neorg-telescope"] = {opt = true}
+editor["nvim-neorg/neorg"] = {
+  opt = true,
+  config = conf.neorg,
+  requires = {"nvim-neorg/neorg-telescope", ft = {"norg"}}
+}
 return editor

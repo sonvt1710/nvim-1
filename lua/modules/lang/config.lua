@@ -81,7 +81,6 @@ local path = vim.split(package.path, ";")
 table.insert(path, "lua/?.lua")
 table.insert(path, "lua/?/init.lua")
 
-
 function config.navigator()
 
   local luadev = {}
@@ -90,8 +89,7 @@ function config.navigator()
   -- end
 
   local sumneko_root_path = vim.fn.expand("$HOME") .. "/github/sumneko/lua-language-server"
-  local sumneko_binary = vim.fn.expand("$HOME")
-                               .. "/github/sumneko/lua-language-server/bin/macOS/lua-language-server"
+  local sumneko_binary = vim.fn.expand("$HOME") .. "/github/sumneko/lua-language-server/bin/macOS/lua-language-server"
   luadev.sumneko_root_path = sumneko_root_path
   luadev.sumneko_binary = sumneko_binary
 
@@ -107,6 +105,7 @@ function config.navigator()
     lsp_installer = false,
     border = single, -- "single",
     ts_fold = true,
+    -- external = true, -- true: enable for goneovim multigrid otherwise false
     lsp_signature_help = true,
     -- default_mapping = false,
     -- keymaps = {{key = "gs", func = "references()"}},
@@ -114,8 +113,9 @@ function config.navigator()
       format_on_save = true, -- set to false to disasble lsp code format on save (if you are using prettier/efm/formater etc)
       disable_format_cap = {"sqls", "gopls"}, -- a list of lsp not enable auto-format (e.g. if you using efm or vim-codeformat etc)
       -- disable_lsp = {'denols'},
-      disable_lsp = { "rls", "flow" },
+      disable_lsp = {"rls", "flow"},
       code_lens = true,
+      diagnostic_scrollbar_sign = false,
       disply_diagnostic_qf = false,
       denols = {filetypes = {}},
       tsserver = {
@@ -150,8 +150,15 @@ function config.navigator()
       jedi_language_server = {filetypes = {}},
       efm = require('modules.lang.efm').efm
     }
+    -- icons = {
+    --   diagnostic_err = "",
+    --   diagnostic_warn = "",
+    --   diagnostic_info = [[]],
+    --   diagnostic_hint = [[ﯦ]],
+    --   diagnostic_virtual_text = ""
+    -- }
   }
-  vim.lsp.set_log_level("error")   -- error debug info
+  vim.lsp.set_log_level("error") -- error debug info
   require"navigator".setup(nav_cfg)
 end
 

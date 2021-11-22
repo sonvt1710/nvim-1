@@ -103,10 +103,7 @@ completion["nvim-telescope/telescope.nvim"] = {
   config = conf.telescope,
   setup = conf.telescope_preload,
   requires = {
-    {"nvim-lua/plenary.nvim", opt = true}
-    -- {"nvim-telescope/telescope-fzy-native.nvim", opt = true},
-    -- {"nvim-telescope/telescope-fzf-native.nvim", opt = true, run = 'make'},
-    -- {"nvim-telescope/telescope-fzf-writer.nvim", opt = true}
+    {"nvim-lua/plenary.nvim", opt = true}, {"nvim-telescope/telescope-fzy-native.nvim", opt = true}
   },
   opt = true
 }
@@ -135,7 +132,7 @@ completion[plugin_folder() .. "lsp_signature.nvim"] = {
       debug = plugin_debug(),
       verbose = plugin_debug(),
       -- hi_parameter = "Search",
-      zindex = 200,
+      zindex = 1002,
       timer_interval = 100,
       extra_trigger_chars = {},
       handler_opts = {
